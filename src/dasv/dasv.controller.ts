@@ -1,15 +1,5 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Query,
-  Req,
-  Request,
-  Res,
-  Session,
-} from '@nestjs/common';
+import { Controller, Get, Inject, Param, Res, Session } from '@nestjs/common';
 import { DasvService } from './dasv.service';
-import { Response } from 'supertest';
 import { log } from 'console';
 
 // controller变为对象形式，指定统一路由前缀和版本号
@@ -19,7 +9,11 @@ import { log } from 'console';
   version: '1',
 })
 export class DasvController {
-  constructor(private readonly dasvService: DasvService) {}
+  constructor(
+    private readonly dasvService: DasvService,
+    // 使用自定义service
+    @Inject('testSer') private readonly testSer: number[]
+  ) {}
   // 随机生成 验证码
   @Get('/code')
   // 通过装饰器拿到session，往session里注入随机验证码
@@ -46,6 +40,7 @@ export class DasvController {
   @Get()
   findAll() {
     return {
+      message: this.testSer,
       sucess: 200,
     };
   }
