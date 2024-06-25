@@ -24,7 +24,7 @@ export class DasvService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} dasv`;
+    return id;
   }
 
   update(id: number, updateDasvDto: UpdateDasvDto) {

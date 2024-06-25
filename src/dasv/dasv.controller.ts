@@ -12,7 +12,8 @@ export class DasvController {
   constructor(
     private readonly dasvService: DasvService,
     // 使用自定义service
-    @Inject('testSer') private readonly testSer: number[]
+    @Inject('testSer') private readonly testSer: number[],
+    @Inject('project') private readonly project: any
   ) {}
   // 随机生成 验证码
   @Get('/code')
@@ -40,7 +41,7 @@ export class DasvController {
   @Get()
   findAll() {
     return {
-      message: this.testSer,
+      message: this.project,
       sucess: 200,
     };
   }

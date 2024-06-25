@@ -12,6 +12,19 @@ import { DasvController } from './dasv.controller';
       provide: 'testSer',
       useValue: [1, 2, 3],
     },
+    // 工厂模式
+    {
+      provide: 'project',
+      // 需要inject注入一个service
+      inject: [DasvService],
+      useFactory(DasvService: DasvService) {
+        if (DasvService.findOne(1) === 1) {
+          return {
+            name: 'test',
+          };
+        }
+      },
+    },
   ],
 })
 export class DasvModule {}
