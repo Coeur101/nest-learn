@@ -1,16 +1,17 @@
 import {
-  Body,
   Controller,
   Get,
-  Header,
-  Headers,
-  Post,
+  Param,
   Query,
   Req,
   Request,
+  Res,
+  Session,
 } from '@nestjs/common';
 import { DasvService } from './dasv.service';
+import { Response } from 'supertest';
 import { log } from 'console';
+
 // controller变为对象形式，指定统一路由前缀和版本号
 // 指定1的话就是默认v1 http://localhost:3000/v1/dasv
 @Controller({
@@ -19,9 +20,31 @@ import { log } from 'console';
 })
 export class DasvController {
   constructor(private readonly dasvService: DasvService) {}
+  // 随机生成 验证码
+  @Get('/code')
+  // 通过装饰器拿到session，往session里注入随机验证码
+  createCode(@Res() res, @Session() session) {
+    const { data, text } = this.dasvService.createCode();
+    session.code = text;
+    // 返回格式为图片，调用原生的res.send方法，不使用return
+    res.type('image/svg+xml');
+    res.send(data);
+  }
+  @Get('/code/:code')
+  createUser(@Param() param, @Session() session) {
+    log(param.code);
+    log(session.code);
+    if (param.code.toLowerCase() === session.code.toLowerCase()) {
+      return this.dasvService.createUser();
+    } else {
+      return {
+        success: 400,
+        message: '验证码错误',
+      };
+    }
+  }
   @Get()
-  findAll(@Request() req) {
-    log(req);
+  findAll() {
     return {
       sucess: 200,
     };
