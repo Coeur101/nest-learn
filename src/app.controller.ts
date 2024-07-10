@@ -1,9 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ErrorException } from './ErrorException';
 // 配置统一前缀
 @Controller('/get')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get()
   getHello(): string {

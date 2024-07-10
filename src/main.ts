@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { VersioningType } from '@nestjs/common';
 import * as session from 'express-session';
+import { ErrorFilter } from './error.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // 添加统一版本号在url上
@@ -19,6 +20,8 @@ async function bootstrap() {
       },
     })
   );
+  // 全局启用捕获错误过滤器
+  app.useGlobalFilters(new ErrorFilter)
   await app.listen(3000);
 }
 bootstrap();
