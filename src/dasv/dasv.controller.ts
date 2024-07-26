@@ -42,7 +42,7 @@ export class DasvController {
   }
   @Get()
   findAll() {
-    throw new ErrorException('123', '456');
+    //throw new ErrorException('123', '456');
     return {
       message: this.project,
       sucess: 200,

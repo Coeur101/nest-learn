@@ -5,8 +5,10 @@ import { BbbController } from './bbb/bbb.controller';
 import { BbbService } from './bbb/bbb.service';
 import { BbbModule } from './bbb/bbb.module';
 import { DasvModule } from './dasv/dasv.module';
+import { ModelAModule } from './model-a/model-a.module';
+import { ModelBModule } from './model-b/model-b.module';
 @Module({
-  imports: [BbbModule, DasvModule],
+  imports: [BbbModule, DasvModule, ModelAModule, ModelBModule],
   controllers: [AppController, BbbController],
   providers: [AppService, BbbService],
 })
