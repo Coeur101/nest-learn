@@ -3,8 +3,12 @@ import { AppModule } from './app.module';
 import { VersioningType } from '@nestjs/common';
 import * as session from 'express-session';
 import { ErrorFilter } from './error.filter';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  // 配置静态资源访问目录
+  app.useStaticAssets(join(__dirname, './images'))
   // 添加统一版本号在url上
   app.enableVersioning({
     type: VersioningType.URI,
