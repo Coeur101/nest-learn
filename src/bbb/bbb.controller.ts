@@ -19,4 +19,8 @@ export class BbbController {
   getHello() {
     return this.bbbService.getHello();
   }
+  @Get('/test')
+  getTest() {
+    return 'test';
+  }
 }
