@@ -6,7 +6,7 @@ import { concatDecorators } from 'src/utils/concatDecorators';
 
 @Controller('bbb')
 export class BbbController {
-  constructor(private readonly bbbService: BbbService) { }
+  constructor(private readonly bbbService: BbbService) {}
 
   // 简化自定义装饰器
   // @SetMetadata('custom-decorator', 'admin')

@@ -1,14 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { VersioningType } from '@nestjs/common';
+import { Res, VersioningType } from '@nestjs/common';
 import * as session from 'express-session';
 import { ErrorFilter } from './error.filter';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import { res } from './common/res';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   // 配置静态资源访问目录
-  app.useStaticAssets(join(__dirname, './images'))
+  app.useStaticAssets(join(__dirname, './images'));
   // 添加统一版本号在url上
   app.enableVersioning({
     type: VersioningType.URI,
@@ -24,8 +25,10 @@ async function bootstrap() {
       },
     })
   );
+  // 使用全局拦截器
+  app.useGlobalInterceptors(new res());
   // 全局启用捕获错误过滤器
-  app.useGlobalFilters(new ErrorFilter)
+  app.useGlobalFilters(new ErrorFilter());
   await app.listen(3000);
 }
 bootstrap();

@@ -8,8 +8,9 @@ import { DasvModule } from './dasv/dasv.module';
 import { ModelAModule } from './model-a/model-a.module';
 import { ModelBModule } from './model-b/model-b.module';
 import { UploadImageModule } from './upload-image/upload-image.module';
+import { ResInterceptorModule } from './res-interceptor/res-interceptor.module';
 @Module({
-  imports: [BbbModule, DasvModule, ModelAModule, ModelBModule, UploadImageModule],
+  imports: [BbbModule, DasvModule, ModelAModule, ModelBModule, UploadImageModule, ResInterceptorModule],
   controllers: [AppController, BbbController],
   providers: [AppService, BbbService],
 })
