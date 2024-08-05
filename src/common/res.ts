@@ -16,7 +16,7 @@ export class res<T> implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler<any>
   ): Observable<Data<T>> | Promise<Observable<Data<T>>> {
-    // 是哟个RXjs的功能，用pipe管道来对数据进行处理
+    // 使用RXjs的功能，用pipe管道来对数据进行处理
     return next
       .handle()
       .pipe(map((data) => ({ code: 0, messagge: '请求成功', data })));
