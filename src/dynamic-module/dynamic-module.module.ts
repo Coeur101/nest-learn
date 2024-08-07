@@ -18,4 +18,8 @@ export class DynamicModuleModule {
       exports: []
     }
   }
+  // nest约定了三个 方法供给外部使用 register forRoot forFeature
+  // register 代表是一次性的，使用一次就传一次配置
+  // forRoot 代表全局的，一般是在AppModule使用。然后传一次的配置后续就不会变动了
+  // forFeature 代表forRoot的扩展 具体是在各个模块中的imports导入然后传入特定当前模块需要的配置，比如TypeOrm的模块
 }
