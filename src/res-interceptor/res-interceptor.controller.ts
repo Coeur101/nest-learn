@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Next, Post, UseInterceptors, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpException, HttpStatus, Next, Post, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { ResInterceptorService } from './res-interceptor.service';
 import { ApiInterceptor } from 'src/common/api.interceptor';
 import { TimeOut } from 'src/common/timeout';
@@ -30,6 +30,7 @@ export class ResInterceptorController {
     //   throw new HttpException('参数校验错误', HttpStatus.NOT_FOUND)
     // }
   })) obj: resDtos) {
+    // throw new BadRequestException('参数校验错误')
     return obj
   }
 }
