@@ -10,12 +10,13 @@ import { ModelBModule } from './model-b/model-b.module';
 import { UploadImageModule } from './upload-image/upload-image.module';
 import { ResInterceptorModule } from './res-interceptor/res-interceptor.module';
 import { DynamicModuleModule } from './dynamic-module/dynamic-module.module';
+import { GetAnimeModule } from './get-anime/get-anime.module';
 @Module({
   imports: [BbbModule, DasvModule, ModelAModule, ModelBModule, UploadImageModule, ResInterceptorModule, DynamicModuleModule.register({
     // 注入给模块值，然后通过动态provider使用
     aa: 123,
     bb: 231
-  })],
+  }), GetAnimeModule],
   controllers: [AppController, BbbController],
   providers: [AppService, BbbService],
 })
