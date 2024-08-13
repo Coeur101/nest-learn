@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Res, VersioningType } from '@nestjs/common';
+import { Res, ValidationPipe, VersioningType } from '@nestjs/common';
 import * as session from 'express-session';
 import { ErrorFilter } from './error.filter';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -27,6 +27,8 @@ async function bootstrap() {
   );
   // 使用全局拦截器
   app.useGlobalInterceptors(new res());
+  // nest自处理参数验证返回的结果
+  app.useGlobalPipes(new ValidationPipe())
   // 全局启用捕获错误过滤器
   app.useGlobalFilters(new ErrorFilter());
   await app.listen(3000);

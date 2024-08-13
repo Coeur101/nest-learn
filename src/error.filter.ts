@@ -18,7 +18,7 @@ export class ErrorFilter<T> implements ExceptionFilter {
     const responseException = exception.getResponse() as { message: string[] };
     res.status(httpStatus).json({
       // 对单个参数校验的返回信息做适配
-      message: responseException?.message?.join()
+      message: Array.isArray(responseException?.message)
         ? responseException?.message?.join(',')
         : exception.message,
       status: httpStatus,
