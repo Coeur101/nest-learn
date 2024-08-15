@@ -12,12 +12,13 @@ import { ResInterceptorModule } from './res-interceptor/res-interceptor.module';
 import { DynamicModuleModule } from './dynamic-module/dynamic-module.module';
 import { GetAnimeModule } from './get-anime/get-anime.module';
 import { UserModule } from './book-manager/user/user.module';
+import { BookModule } from './book-manager/book/book.module';
 @Module({
   imports: [BbbModule, DasvModule, ModelAModule, ModelBModule, UploadImageModule, ResInterceptorModule, DynamicModuleModule.register({
     // 注入给模块值，然后通过动态provider使用
     aa: 123,
     bb: 231
-  }), GetAnimeModule, UserModule],
+  }), GetAnimeModule, UserModule, BookModule],
   controllers: [AppController, BbbController],
   providers: [AppService, BbbService],
 })
