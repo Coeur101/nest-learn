@@ -23,8 +23,10 @@ export class DbService {
   }
   // 写数据库
   async write(obj: Record<string, any>[] | Record<string, any>) {
+    const db = await this.read()
+    db.push({ id: db[db.length - 1]?.id + 1 || 1, ...obj })
     // 叠加写入数据库
-    await fs.promises.writeFile(path.join(__dirname, this.option.path), JSON.stringify(obj || []), { encoding: 'utf-8' })
+    await fs.promises.writeFile(path.join(__dirname, this.option.path), JSON.stringify(db || []), { encoding: 'utf-8' })
     return true
   }
 }

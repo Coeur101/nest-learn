@@ -6,7 +6,7 @@ import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 
 @Module({
-  // 同步的模块使用
+  // 动态模块使用
   imports: [
     MulterModule.register({
       // 上传完成后图片存放的位置
@@ -24,4 +24,4 @@ import { extname, join } from 'path';
   controllers: [UploadImageController],
   providers: [UploadImageService],
 })
-export class UploadImageModule {}
+export class UploadImageModule { }

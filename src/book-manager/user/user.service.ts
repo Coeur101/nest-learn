@@ -17,9 +17,8 @@ export class UserService {
     const user = new User()
     user.username = userInfo.username
     user.password = userInfo.password
-    dbUserInfo.push(user)
-    this.DbService.write(dbUserInfo)
-    return []
+    this.DbService.write(user)
+    return '注册成功'
   }
   async login(userInfo: LoginUserDto) {
     const dbUserInfo: User[] = await this.DbService.read()
