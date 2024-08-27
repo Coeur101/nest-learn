@@ -10,7 +10,8 @@ export class BookController {
     return this.bookService.getBookList()
   }
   @Get(':id')
-  getOneBook(@Param('id') id: string) {
+  getOneBook(@Param('id') id: number) {
+    console.log(id)
     return this.bookService.getOneBook(id)
   }
   @Post('create')
@@ -22,7 +23,7 @@ export class BookController {
     return this.bookService.updateBook(updateBook)
   }
   @Delete('delete/:id')
-  deleteBook(@Param('id') id: string) {
+  deleteBook(@Param('id') id: number) {
     return this.bookService.deleteBook(id)
   }
 }
