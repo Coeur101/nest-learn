@@ -4,4 +4,5 @@ export class Book {
   author: string
   description: string
   cover: string
+  deleteDsc?: string | null
 }

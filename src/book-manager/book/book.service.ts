@@ -6,7 +6,10 @@ import { Book } from '../entity/book';
 @Injectable()
 export class BookService {
   constructor(private readonly DbService: DbService) { }
-  getBookList() { }
+  async getBookList() {
+    const books: Book[] = await this.DbService.read()
+    return books.filter(e => !e.deleteDsc)
+  }
   async getOneBook(id: number) {
     const books: Book[] = await this.DbService.read()
     const data = books.find(book => book.id === Number(id))
@@ -17,7 +20,7 @@ export class BookService {
     const books = await this.DbService.read() || []
     const book = new Book()
     Object.assign(book, createBook)
-    books.push({ id: books[books.length - 1]?.id + 1 || 1, ...book })
+    books.push({ id: books[books.length - 1]?.id + 1 || 1, deleteDsc: null, ...book })
     try {
       this.DbService.write(books)
     } catch (error) {
@@ -37,9 +40,10 @@ export class BookService {
   }
   async deleteBook(id: number) {
     const books: Book[] = await this.DbService.read()
-    const bookIndex = books.findIndex(e => e.id === id)
+    const bookIndex = books.findIndex(e => e.id === id && !e.deleteDsc)
     if (bookIndex !== -1) {
-      books.splice(bookIndex, 1)
+      books[bookIndex].deleteDsc = new Date().toISOString()
+
       this.DbService.write(books)
     } else {
       throw new BadRequestException('图书不存在,删除失败')
