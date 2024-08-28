@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsInt, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateBook {
   @IsNotEmpty({ message: "图书名称不能为空" })
@@ -15,6 +15,7 @@ export class CreateBook {
 }
 export class UpdateBook {
   @IsNotEmpty({ message: "id不能为空" })
+  @IsInt({ message: "id必须是数值" })
   id: number
   @IsNotEmpty({ message: "图书名称不能为空" })
   @IsString({ message: "图书名称必须是字符串" })
