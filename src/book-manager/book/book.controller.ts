@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBook, UpdateBook } from '../dtos/createBook';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('book')
 export class BookController {
@@ -26,5 +27,15 @@ export class BookController {
   // 使用官方参数管道，处理id转换成int
   deleteBook(@Param('id', ParseIntPipe) id: number) {
     return this.bookService.deleteBook(id)
+  }
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('cover'))
+  uploadBookCover(@UploadedFile() file) {
+    if (!file) {
+      throw new BadRequestException('请上传文件')
+    }
+    return {
+      path: `/images/${file.filename}`
+    }
   }
 }

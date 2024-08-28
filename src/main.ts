@@ -9,7 +9,7 @@ import { res } from './common/res';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   // 配置静态资源访问目录
-  app.useStaticAssets(join(__dirname, './images'));
+  app.useStaticAssets(join(__dirname, './book-manager'));
   // 添加统一版本号在url上
   app.enableVersioning({
     type: VersioningType.URI,
