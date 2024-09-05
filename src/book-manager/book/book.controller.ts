@@ -2,6 +2,9 @@ import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe
 import { BookService } from './book.service';
 import { CreateBook, UpdateBook } from '../dtos/createBook';
 import { FileInterceptor } from '@nestjs/platform-express';
+import * as path from 'node:path';
+import { config } from 'src/config';
+import { storage } from 'src/utils/storage';
 
 @Controller('book')
 export class BookController {
@@ -29,7 +32,23 @@ export class BookController {
     return this.bookService.deleteBook(id)
   }
   @Post('upload')
-  @UseInterceptors(FileInterceptor('cover'))
+  @UseInterceptors(FileInterceptor('cover', {
+    dest: "images",
+    storage: storage,
+    limits: {
+      fileSize: 1024 * 1024 * 3
+    },
+    fileFilter(req, file, callback) {
+      const extName = path.extname(file.originalname)
+      const uploadsType = config.uploads.type
+      if (uploadsType.includes(extName)) {
+        callback(null, true)
+      } else {
+        callback(new BadRequestException('上传文件类型错误'), false)
+
+      }
+    }
+  }))
   uploadBookCover(@UploadedFile() file) {
     if (!file) {
       throw new BadRequestException('请上传文件')
